@@ -1,16 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sports_club_flutter/app/chat/cubit/chat_cubit.dart';
 
-class ChatPageContent extends StatefulWidget {
-  const ChatPageContent({
-    super.key,
-  });
+class ChatPageContent extends StatelessWidget {
+  const ChatPageContent({super.key});
 
   @override
-  State<ChatPageContent> createState() => _ChatPageContentState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ChatCubit()..start(),
+      child: const _ChatPageContent(),
+    );
+  }
 }
 
-class _ChatPageContentState extends State<ChatPageContent> {
+class _ChatPageContent extends StatefulWidget {
+  const _ChatPageContent({super.key});
+
+  @override
+  _ChatPageContentState createState() => _ChatPageContentState();
+}
+
+class _ChatPageContentState extends State<_ChatPageContent> {
   final TextEditingController _messageController = TextEditingController();
 
   @override
@@ -22,10 +33,7 @@ class _ChatPageContentState extends State<ChatPageContent> {
   void _sendMessage() {
     final message = _messageController.text.trim();
     if (message.isNotEmpty) {
-      FirebaseFirestore.instance.collection('chat').add({
-        'message': message,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
+      context.read<ChatCubit>().sendMessage(message);
       _messageController.clear();
     }
   }
@@ -36,28 +44,22 @@ class _ChatPageContentState extends State<ChatPageContent> {
       appBar: AppBar(
         title: const Text('Czat'),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: FirebaseFirestore.instance
-                  .collection('chat')
-                  .orderBy('timestamp', descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return const Center(child: Text('Coś poszło nie tak'));
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: Text('Ładowanie...'));
-                }
-                final messages = snapshot.data!.docs;
-
-                return ListView.builder(
+      body: BlocBuilder<ChatCubit, ChatState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state.errorMessage.isNotEmpty) {
+            return Center(child: Text('Błąd: ${state.errorMessage}'));
+          }
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
                   reverse: true,
-                  itemCount: messages.length,
+                  itemCount: state.messages.length,
                   itemBuilder: (context, index) {
-                    final message = messages[index]['message'] as String;
+                    final message = state.messages[index]['message'] as String;
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 8),
@@ -69,39 +71,39 @@ class _ChatPageContentState extends State<ChatPageContent> {
                       ),
                     );
                   },
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: const InputDecoration(
-                      hintText: 'Wpisz wiadomość',
-                      border: OutlineInputBorder(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _messageController,
+                        decoration: const InputDecoration(
+                          hintText: 'Wpisz wiadomość',
+                          border: OutlineInputBorder(),
+                        ),
+                        onSubmitted: (_) => _sendMessage(),
+                      ),
                     ),
-                    onSubmitted: (_) => _sendMessage(),
-                  ),
+                    const SizedBox(width: 8),
+                    ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: _messageController,
+                      builder: (context, value, child) {
+                        return ElevatedButton(
+                          onPressed:
+                              value.text.trim().isEmpty ? null : _sendMessage,
+                          child: const Text('Wyślij'),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                ValueListenableBuilder<TextEditingValue>(
-                  valueListenable: _messageController,
-                  builder: (context, value, child) {
-                    return ElevatedButton(
-                      onPressed:
-                          value.text.trim().isEmpty ? null : _sendMessage,
-                      child: const Text('Wyślij'),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
