@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/home/home_page.dart';
 import 'package:sports_club_flutter/app/login/login_page.dart';
-import 'package:sports_club_flutter/app/main/cubit/root_cubit.dart';
+import 'package:sports_club_flutter/app/my_app/cubit/root_cubit.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
