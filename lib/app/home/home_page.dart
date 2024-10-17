@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sports_club_flutter/app/chat/chat_page_content.dart';
 import 'package:sports_club_flutter/app/my_account/my_account_page_content.dart';
-import 'package:sports_club_flutter/app/news/news_page_view.dart';
+import 'package:sports_club_flutter/app/news/news_page_content.dart';
 import 'package:sports_club_flutter/app/schedule/schedule_page_content.dart';
 import 'package:sports_club_flutter/app/table/table_page_content.dart';
 
