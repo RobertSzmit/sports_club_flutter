@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sports_club_flutter/app/my_account/cubit/my_account_cubit.dart';
+import 'package:sports_club_flutter/app/features/my_account/cubit/my_account_cubit.dart';
 
 class MyAccountPageContent extends StatelessWidget {
   const MyAccountPageContent({super.key, String? email});

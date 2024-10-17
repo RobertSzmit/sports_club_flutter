@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sports_club_flutter/app/news/benner_row_widget.dart';
-import 'package:sports_club_flutter/app/news/cubit/news_banner_cubit.dart';
-import 'package:sports_club_flutter/app/news/cubit/news_cubit.dart';
+import 'package:sports_club_flutter/app/features/news/benner_row_widget.dart';
+import 'package:sports_club_flutter/app/features/news/cubit/news_banner_cubit.dart';
+import 'package:sports_club_flutter/app/features/news/cubit/news_cubit.dart';
 
 class NewsBannerPageView extends StatelessWidget {
   const NewsBannerPageView({super.key});

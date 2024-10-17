@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sports_club_flutter/app/schedule/cubit/schedule_cubit.dart';
+import 'package:sports_club_flutter/app/features/schedule/cubit/schedule_cubit.dart';
 
 class SchedulePageView extends StatelessWidget {
   const SchedulePageView({super.key});
