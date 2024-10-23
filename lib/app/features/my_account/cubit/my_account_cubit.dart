@@ -1,37 +1,64 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
+import 'package:sports_club_flutter/app/models/user_item_mode.dart';
+import 'package:sports_club_flutter/app/repositories/my_account_repository.dart';
 
 part 'my_account_state.dart';
 
 class MyAccountCubit extends Cubit<MyAccountState> {
-  MyAccountCubit() : super(MyAccountInitial());
+  final MyAccountRepository _repository;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  MyAccountCubit(this._repository)
+      : super(const MyAccountState(isLoading: false, errorMessage: ''));
+
+  StreamSubscription? _streamSubscription;
 
   Future<void> loadUserData() async {
-    emit(MyAccountLoading());
+    emit(const MyAccountState(isLoading: true, errorMessage: ''));
     try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        final doc = await _firestore.collection('users').doc(user.uid).get();
-        final username = doc.data()?['username'] as String?;
-        emit(MyAccountLoaded(username: username ?? 'Nieznany użytkownik', email: user.email));
+      final currentUser = _repository.getCurrentUser();
+      if (currentUser != null) {
+        _streamSubscription = _repository.getUserStream().listen(
+          (userItem) {
+            if (userItem != null) {
+              emit(MyAccountState(
+                  userItem: userItem, isLoading: false, errorMessage: ''));
+            } else {
+              emit(const MyAccountState(
+                  isLoading: false, errorMessage: 'Brak danych użytkownika'));
+            }
+          },
+          onError: (error) {
+            emit(MyAccountState(
+                isLoading: false,
+                errorMessage: 'Błąd podczas pobierania danych: $error'));
+          },
+        );
       } else {
-        emit(MyAccountError('Użytkownik nie jest zalogowany'));
+        emit(const MyAccountState(
+            isLoading: false, errorMessage: 'Użytkownik nie jest zalogowany'));
       }
     } catch (e) {
-      emit(MyAccountError('Błąd podczas pobierania danych użytkownika: $e'));
+      emit(MyAccountState(
+          isLoading: false,
+          errorMessage: 'Błąd podczas pobierania danych użytkownika: $e'));
     }
   }
 
   Future<void> signOut() async {
     try {
-      await _auth.signOut();
-      emit(MyAccountSignedOut());
+      await _repository.signOut();
+      emit(const MyAccountState(isLoading: false, errorMessage: ''));
     } catch (e) {
-      emit(MyAccountError('Błąd podczas wylogowywania: $e'));
+      emit(MyAccountState(
+          isLoading: false, errorMessage: 'Błąd podczas wylogowywania: $e'));
     }
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
   }
 }

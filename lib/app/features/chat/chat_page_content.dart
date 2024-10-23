@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/features/chat/cubit/chat_cubit.dart';
+import 'package:sports_club_flutter/app/repositories/chat_repository.dart';
 
 class ChatPageContent extends StatelessWidget {
   const ChatPageContent({super.key});
@@ -8,7 +9,7 @@ class ChatPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChatCubit()..start(),
+      create: (context) => ChatCubit(ChatRepository())..start(),
       child: const _ChatPageContent(),
     );
   }
