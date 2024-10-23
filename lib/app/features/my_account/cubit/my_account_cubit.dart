@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sports_club_flutter/app/models/user_item_mode.dart';
+import 'package:sports_club_flutter/app/models/user_item_model.dart';
 import 'package:sports_club_flutter/app/repositories/my_account_repository.dart';
 
 part 'my_account_state.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sports_club_flutter/app/models/banner_item_mode.dart';
+import 'package:sports_club_flutter/app/models/banner_item_model.dart';
 import 'package:sports_club_flutter/app/repositories/news_repository.dart';
 
 part 'news_banner_state.dart';

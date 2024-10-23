@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sports_club_flutter/app/models/banner_item_mode.dart';
+import 'package:sports_club_flutter/app/models/banner_item_model.dart';
 import 'package:sports_club_flutter/app/models/news_item_model.dart';
 
 class NewsRepository {

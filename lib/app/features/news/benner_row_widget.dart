@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sports_club_flutter/app/models/banner_item_mode.dart';
+import 'package:sports_club_flutter/app/models/banner_item_model.dart';
 
 class BannerRowWidget extends StatelessWidget {
   final BannerItem banner;

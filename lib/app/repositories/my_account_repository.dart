@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sports_club_flutter/app/models/user_item_mode.dart';
+import 'package:sports_club_flutter/app/models/user_item_model.dart';
 
 class MyAccountRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
