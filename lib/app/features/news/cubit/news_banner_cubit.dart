@@ -31,16 +31,18 @@ class NewsBannerCubit extends Cubit<NewsBannerState> {
         .collection('banner')
         .snapshots()
         .listen((snapshot) {
-      final bannerItems = snapshot.docs.map((doc) => BannerItem(
-            id: doc.id,
-            date: doc['date'] as String? ?? '',
-            team1Name: doc['team1Name'] as String? ?? '',
-            team1Logo: doc['team1Logo'] as String? ?? '',
-            team1Score: doc['team1Score'] as String? ?? '',
-            team2Name: doc['team2Name'] as String? ?? '',
-            team2Logo: doc['team2Logo'] as String? ?? '',
-            team2Score: doc['team2Score'] as String? ?? '',
-          )).toList();
+      final bannerItems = snapshot.docs
+          .map((doc) => BannerItem(
+                id: doc.id,
+                date: doc['date'] as String? ?? '',
+                team1Name: doc['team1Name'] as String? ?? '',
+                team1Logo: doc['team1Logo'] as String? ?? '',
+                team1Score: doc['team1Score'] as String? ?? '',
+                team2Name: doc['team2Name'] as String? ?? '',
+                team2Logo: doc['team2Logo'] as String? ?? '',
+                team2Score: doc['team2Score'] as String? ?? '',
+              ))
+          .toList();
       emit(
         NewsBannerState(
           bannerItems: bannerItems,
