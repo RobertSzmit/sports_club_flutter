@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/features/chat/cubit/chat_cubit.dart';
+import 'package:sports_club_flutter/app/features/chat/cubit/chat_state.dart';
 import 'package:sports_club_flutter/app/repositories/chat_repository.dart';
 
 class ChatPageContent extends StatelessWidget {

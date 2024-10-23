@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/features/table/cubit/table_cubit.dart';
+import 'package:sports_club_flutter/app/features/table/cubit/table_state.dart';
 
 class TablePageView extends StatelessWidget {
   const TablePageView({super.key});

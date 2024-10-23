@@ -1,26 +1,13 @@
-part of 'news_cubit.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sports_club_flutter/app/models/news_item_model.dart';
 
-@immutable
-class NewsState {
-  final List<NewsItem> newsItems;
-  final bool isLoading;
-  final String errorMessage;
+part 'news_state.freezed.dart';
 
-  const NewsState({
-    required this.newsItems,
-    required this.isLoading,
-    required this.errorMessage,
-  });
-
-  NewsState copyWith({
-    List<NewsItem>? newsItems,
-    bool? isLoading,
-    String? errorMessage,
-  }) {
-    return NewsState(
-      newsItems: newsItems ?? this.newsItems,
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-    );
-  }
+@freezed
+class NewsState with _$NewsState {
+  const factory NewsState({
+    @Default([]) List<NewsItem> newsItems,
+    @Default(false) bool isLoading,
+    @Default('') String errorMessage,
+  }) = _NewsState;
 }

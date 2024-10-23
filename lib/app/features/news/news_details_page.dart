@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/features/news/cubit/news_cubit.dart';
+import 'package:sports_club_flutter/app/features/news/cubit/news_state.dart';
 import 'package:sports_club_flutter/app/models/news_item_model.dart';
 import 'package:sports_club_flutter/app/repositories/news_repository.dart';
 
@@ -23,7 +24,7 @@ class NewsDetailsPage extends StatelessWidget {
           
           final newsItem = state.newsItems.firstWhere(
             (item) => item.id == newsId,
-            orElse: () => NewsItem(
+            orElse: () => const NewsItem(
               id: '',
               title: '',
               content: '',

@@ -1,52 +1,32 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:sports_club_flutter/app/models/table_item_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/repositories/table_repository.dart';
 
-part 'table_state.dart';
+import 'table_state.dart';
 
 class TableCubit extends Cubit<TableState> {
   final TableRepository _repository;
 
-  TableCubit(this._repository)
-      : super(
-          const TableState(
-            teams: [],
-            isLoading: false,
-            errorMessage: '',
-          ),
-        );
+  TableCubit(this._repository) : super(const TableState());
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    emit(
-      const TableState(
-        teams: [],
-        isLoading: true,
-        errorMessage: '',
-      ),
-    );
+    emit(state.copyWith(isLoading: true, teams: []));
 
     _streamSubscription = _repository.streamTableItems().listen(
       (tableItems) {
-        emit(
-          TableState(
-            teams: tableItems,
-            isLoading: false,
-            errorMessage: '',
-          ),
-        );
+        emit(state.copyWith(
+          teams: tableItems,
+          isLoading: false,
+        ));
       },
       onError: (error) {
-        emit(
-          TableState(
-            teams: const [],
-            isLoading: false,
-            errorMessage: error.toString(),
-          ),
-        );
+        emit(state.copyWith(
+          teams: [],
+          isLoading: false,
+          errorMessage: error.toString(),
+        ));
       },
     );
   }
