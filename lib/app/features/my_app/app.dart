@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_club_flutter/app/features/home/home_page.dart';
 import 'package:sports_club_flutter/app/features/login/login_page.dart';
 import 'package:sports_club_flutter/app/features/my_app/cubit/root_cubit.dart';
-import 'package:sports_club_flutter/app/features/my_app/splash_screen.dart';
+import 'package:sports_club_flutter/app/features/splash_screen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

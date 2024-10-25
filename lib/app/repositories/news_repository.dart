@@ -24,7 +24,7 @@ class NewsRepository {
 
   Stream<List<NewsItem>> streamNewsItems() {
     return _firestore.collection('news').snapshots().map((snapshot) {
-      return snapshot.docs
+      final newsItems = snapshot.docs
           .map((doc) => NewsItem(
                 id: doc.id,
                 title: doc['news_title'] as String? ?? '',
@@ -32,6 +32,10 @@ class NewsRepository {
                 imageUrl: doc['image_url'] as String?,
               ))
           .toList();
+
+      newsItems.sort((a, b) => b.id.compareTo(a.id));
+
+      return newsItems;
     });
   }
 
