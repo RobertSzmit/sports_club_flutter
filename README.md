@@ -1,16 +1,23 @@
-# sports_club_flutter
+# Sports Club App - LKS Żuławy
 
-A new Flutter project.
+## 📱 About
+A dedicated mobile application for LKS Żuławy Nowy Dwór Gdański football club. The app connects fans with their team by providing live updates, match schedules, and a community platform.
 
-## Getting Started
+## ✨ Features
+- Authentication system with user profiles
+- News feed with push notifications
+- Live league table standings
+- Match schedule and fixtures
+- Community group chat
+- User profile management
 
-This project is a starting point for a Flutter application.
+## 🛠️ Built With
+- Flutter
+- Firebase (Authentication, Realtime Database, Cloud Messaging)
+- BLoC/Cubit for state management
+- JSON Serialization
+- Freezed for code generation
+- Repository pattern implementation
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🔄 Current Development
+The application is under active development with new features being added regularly.
