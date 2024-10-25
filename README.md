@@ -21,12 +21,3 @@ A dedicated mobile application for LKS Żuławy Nowy Dwór Gdański football clu
 
 ## 🔄 Current Development
 The application is under active development with new features being added regularly.
-
-## 🏗️ Architecture
-```dart
-/lib
- /models         // Data models with Freezed
- /repositories   // Repository pattern implementation
- /blocs         // BLoC/Cubit state management
- /screens       // UI implementation
- /services      // Firebase services
